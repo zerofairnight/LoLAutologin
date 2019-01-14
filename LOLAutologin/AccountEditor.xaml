@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="LOLAutologin.AccountEditor" Title="AccountEditor" Height="300" Width="350" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:LOLAutologin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:TypeExtension TypeName="local:RegionUI" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextBlock.Foreground" Value="#FFFFFFFF" />
+            <Setter Property="TextBlock.FontSize" Value="16" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Icons/bg2.png" Stretch="UniformToFill" AlignmentX="Right" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="Username: " />
+            <TextBox VerticalAlignment="Center" Grid.Column="1" Text="{Binding Username, Mode=TwoWay}" />
+        </Grid>
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Stretch" Grid.Column="0" Text="Password: " />
+            <TextBox VerticalAlignment="Center" Grid.Column="1" Text="{Binding Password, Mode=TwoWay}" />
+        </Grid>
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Stretch" Grid.Column="0" Text="Region: " />
+            <ComboBox VerticalAlignment="Center" Grid.Column="1" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding Region, Mode=TwoWay}" />
+        </Grid>
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Stretch" Grid.Column="0" Text="Note: " />
+            <TextBox VerticalAlignment="Center" Grid.Column="1" Text="{Binding Note, Mode=TwoWay}" />
+        </Grid>
+        <Grid Grid.Row="4" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" Grid.Column="0" Text="Launcher: " />
+            <TextBox VerticalAlignment="Stretch" Grid.Column="1" Text="{Binding LauncherPath, Mode=TwoWay}" />
+            <Button Grid.Column="2" Width="33" VerticalAlignment="Bottom" Margin="3,0,0,0" Click="Button_Click">...</Button>
+        </Grid>
+        <StackPanel Grid.Row="6" Margin="5" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="0,0,15,0" Width="75" Content="OK" Padding="5" Click="Button_Click_OK" />
+            <Button Width="75" Content="Cancel" Padding="5" Click="Button_Click_Cancel" />
+        </StackPanel>
+    </Grid>
+</Window>

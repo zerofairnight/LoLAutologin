@@ -1,0 +1,58 @@
+﻿<Window x:Class="LOLAutologin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LOLAutologin"
+        mc:Ignorable="d"
+        x:ClassModifier="internal"
+        Title="MainWindow" Height="350" Width="500" 
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Window.CommandBindings>
+        <CommandBinding Command="local:LocalCommands.Add" Executed="AddCommand_Executed" />
+        <CommandBinding Command="local:LocalCommands.Edit" Executed="EditCommand_Executed" CanExecute="SelectedAccountCommand_CanExecute" />
+        <CommandBinding Command="local:LocalCommands.Delete" Executed="DeleteCommand_Executed" CanExecute="SelectedAccountCommand_CanExecute" />
+        <CommandBinding Command="local:LocalCommands.Login" Executed="LoginCommand_Executed" CanExecute="SelectedAccountCommand_CanExecute" />
+        <CommandBinding Command="local:LocalCommands.Shortcut" Executed="ShortcutCommand_Executed" CanExecute="SelectedAccountCommand_CanExecute" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="Icons/bg.png" Stretch="UniformToFill" AlignmentX="Right" />
+        </Grid.Background>
+        <ListBox Name="list" Margin="15,15,15,0" SelectionMode="Single" ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount}" MouseDown="list_MouseDown">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="local:LocalCommands.Add" />
+                </ContextMenu>
+            </ListBox.ContextMenu>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DisplayName}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Setter Property="FrameworkElement.ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Command="local:LocalCommands.Login" />
+                                <Separator />
+                                <MenuItem Command="local:LocalCommands.Shortcut" />
+                                <Separator />
+                                <MenuItem Command="local:LocalCommands.Add" />
+                                <MenuItem Command="local:LocalCommands.Edit" />
+                                <MenuItem Command="local:LocalCommands.Delete" />
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Button Grid.Row="1" Style="{StaticResource LoginButton}" Content="Login" Margin="10" Width="135" Height="45" Command="local:LocalCommands.Login" />
+        <TextBlock Grid.Row="1" Text="Settings" TextBlock.Foreground="#FFFFA500" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" TextBlock.FontSize="18" />
+    </Grid>
+</Window>
